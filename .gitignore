@@ -17,6 +17,5 @@ cbuild
 main
 gf-empty
 .vscode
-go.sum
 .DS_Store
 *.exe

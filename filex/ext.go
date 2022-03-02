@@ -8,12 +8,10 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
-/*
-文件类型判断
-fileReader:文件读取器
-fileName:文件表面上的文件名
-allowFileExts:允许的文件扩展名
-*/
+// IsAllowFileExt 文件扩展名判断
+// fileReader:文件读取器
+// fileName:文件表面上的文件名
+// allowFileExts:允许的文件扩展名
 func IsAllowFileExt(fileReader io.Reader, fileName string, allowFileExts []string) (bool, error) {
 	names := strings.Split(fileName, ".")
 	if len(names) < 2 {
