@@ -10,6 +10,7 @@ require (
 	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/elfincafe/mbstring v0.4.2
 	github.com/forgoer/openssl v1.2.0
 	github.com/gabriel-vasile/mimetype v1.4.0
 	github.com/google/uuid v1.3.0 // indirect
