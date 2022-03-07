@@ -31,7 +31,9 @@ func (container *Container) GetEtcd(etcdDsn string) (*clientv3.Client, error) {
 			return nil, err
 		}
 		container.services[fmt.Sprintf("etcd:%s", etcdDsn)] = cli
+		val = cli
 	}
+	//避免值为error反复调用
 	if err, ok := val.(error); ok {
 		return nil, err
 	}
