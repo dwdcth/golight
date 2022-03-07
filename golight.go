@@ -14,7 +14,7 @@ type Container struct {
 var Di = NewContainer()
 
 func NewContainer() *Container {
-	return &Container{}
+	return &Container{services: make(map[string]interface{})}
 }
 
 // func (container *Container) GetSrv(srvType interface{}, srvName string) (interface{}, error) {
