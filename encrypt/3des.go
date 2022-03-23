@@ -17,7 +17,7 @@ func init() {
 }
 
 //加密字符串
-func Encrypt(src string, key string) (string, error) {
+func Encrypt3Des(src string, key string) (string, error) {
 	if src == "" {
 		return "", nil
 	}
@@ -45,7 +45,7 @@ func Encrypt(src string, key string) (string, error) {
 }
 
 //解密字符串
-func Decrypt(enStr string, key string) (string, error) {
+func Decrypt3Des(enStr string, key string) (string, error) {
 	if enStr == "" {
 		return "", nil
 	}
