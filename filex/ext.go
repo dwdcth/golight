@@ -8,6 +8,7 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
+// 注意fileReader会更改位置，如果其它地方需要使用，需要Seek(0,0)
 // IsAllowFileExt 文件扩展名判断
 // fileReader:文件读取器
 // fileName:文件表面上的文件名
