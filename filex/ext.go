@@ -18,6 +18,7 @@ func IsAllowFileExt(fileReader io.Reader, fileName string, allowFileExts []strin
 	if len(names) < 2 {
 		return false, errors.New("文件名不合法")
 	}
+	fileExt := names[len(names)-1]
 	fileDetect, err := mimetype.DetectReader(fileReader)
 	if err != nil {
 		return false, err
@@ -28,16 +29,22 @@ func IsAllowFileExt(fileReader io.Reader, fileName string, allowFileExts []strin
 	if allowFileExts == nil {
 		return false, errors.New("allowFileExts error")
 	}
-	ext := fileDetect.Extension()
+	detectExt := fileDetect.Extension()
 	found := false
 	for _, e := range allowFileExts {
-		if e == ext {
+		if e == detectExt {
 			found = true
 			break
 		}
 	}
-	if !strings.Contains(ext, names[len(names)-1]) {
+	if !strings.Contains(detectExt, fileExt) {
 		found = false
+		if detectExt == ".jpg" && fileExt == "jpeg" {
+			found = true
+		}
+		if detectExt == ".txt" && fileExt == "csv" {
+			found = true
+		}
 	}
 	return found, nil
 }
