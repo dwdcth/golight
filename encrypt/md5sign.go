@@ -3,6 +3,9 @@ package encrypt
 import (
 	"crypto/md5"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"runtime"
 	"sort"
 )
 
@@ -25,4 +28,22 @@ func Md5ParamSign(paramMap map[string]interface{}, appKey string, appVal string,
 	signStr += fmt.Sprintf("%s=%s&", appKey, appVal)
 	signStr += fmt.Sprintf("%s=%s", secretKey, secretVal)
 	return fmt.Sprintf("%x", md5.Sum([]byte(signStr)))
+}
+
+func Md5FileSum(filepath string) (string, error) {
+	f, err := os.Open(filepath)
+	if err != nil {
+		str1 := "Open err"
+		return str1, err
+	}
+	defer f.Close()
+
+	body, err := ioutil.ReadAll(f)
+	if err != nil {
+		str2 := "ioutil.ReadAll"
+		return str2, err
+	}
+	md5 := fmt.Sprintf("%x", md5.Sum(body))
+	runtime.GC()
+	return md5, nil
 }

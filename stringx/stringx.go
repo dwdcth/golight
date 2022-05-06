@@ -18,6 +18,8 @@ import (
 	"time"
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/google/uuid"
 )
 
 var (
@@ -2027,4 +2029,105 @@ func Explode(src []int, sep string) string {
 		}
 	}
 	return res
+}
+
+// StringTimeToInt 时间日期类型转化为时间戳
+func StringTimeToInt(stringTime string, temp string) (int64, error) {
+	loc, _ := time.LoadLocation("Local")
+	the_time, err := time.ParseInLocation(temp, stringTime, loc)
+	if err != nil {
+		return 0, err
+	}
+	return the_time.Unix(), err
+}
+
+// UUIDString 生成uuid
+// hasHyphen  是否需要连字符
+func UUIDString(hasHyphen bool) string {
+	// V4 基于随机数
+	u4 := uuid.New()
+	res := u4.String()
+	if hasHyphen {
+		res = strings.Replace(res, "-", "", -1)
+	}
+	return res
+}
+
+func FormatDateToString(datePut string, putTimeTemplate string, outTimeTemplate string) (string, error) {
+	stamp, err := time.ParseInLocation(putTimeTemplate, datePut, time.Local)
+	if err != nil {
+		return "", err
+	}
+	t := time.Unix(stamp.Unix(), 0)
+	return t.Format(outTimeTemplate), nil
+}
+
+/**
+ * 首字母转大写
+ */
+func StrFirstToUpper(str string) string {
+	if len(str) < 1 {
+		return ""
+	}
+	strArry := []rune(str)
+	if strArry[0] >= 97 && strArry[0] <= 122 {
+		strArry[0] -= 32
+	} else if strArry[0] >= 129 && strArry[0] <= 154 {
+		strArry[0] -= 64
+	}
+	return string(strArry)
+}
+
+/**
+ * 下划线连接字符串转大驼峰
+ */
+func BelowLineToCamel(str string) string {
+	if strings.Contains(str, "_") {
+		arr := strings.Split(str, "_")
+		newString := ""
+		for _, v := range arr {
+			newString = newString + StrFirstToUpper(v)
+		}
+		return newString
+	} else {
+		return str
+	}
+}
+
+//判断是否为中文
+func IsChinese(str string) bool {
+	isChinese := regexp.MustCompile("^[\u4e00-\u9fa5]") //我们要匹配中文的匹配规则
+	return isChinese.MatchString(str)
+}
+
+//脱敏号码type:phone手机号，idCard证件号
+func Desensitization(number string, numberType string) string {
+	if len(number) == 0 {
+		return ""
+	}
+	var start = 0
+	var end = 0
+	if numberType == "phone" {
+		start = 2
+		end = 7
+	} else if numberType == "idCard" {
+		if len(number) > 5 {
+			start = 1
+			end = len(number) - 2
+		} else {
+			start = 1
+			end = len(number)
+		}
+	}
+	numberSlice := strings.Split(number, "")
+	var newNumberSlice []string
+	for key, value := range numberSlice {
+		if key > start && key < end {
+			newNumberSlice = append(newNumberSlice, "*")
+		} else {
+			newNumberSlice = append(newNumberSlice, value)
+		}
+	}
+	newNumber := strings.Join(newNumberSlice, "")
+	return newNumber
 }
