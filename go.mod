@@ -11,9 +11,10 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/elfincafe/mbstring v0.4.2
-	github.com/forgoer/openssl v1.2.0
-	github.com/gabriel-vasile/mimetype v1.4.0
+	github.com/forgoer/openssl v1.2.1
+	github.com/gabriel-vasile/mimetype v1.4.1
 	github.com/google/go-cmp v0.5.6 // indirect
+	github.com/google/uuid v1.3.0
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
@@ -27,7 +28,7 @@ require (
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	go.etcd.io/etcd v3.3.27+incompatible
 	go.uber.org/zap v1.21.0 // indirect
-	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
+	golang.org/x/crypto v0.0.0-20220817201139-bc19a97f63c8
 	golang.org/x/text v0.3.8-0.20211105212822-18b340fc7af2
 	google.golang.org/grpc v1.33.1
 	sigs.k8s.io/yaml v1.3.0 // indirect
