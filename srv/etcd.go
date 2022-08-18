@@ -3,14 +3,14 @@ package srv
 import (
 	"crypto/tls"
 	"fmt"
+	"go.etcd.io/etcd/client/pkg/v3/transport"
 	"log"
 	"net/url"
 	"strconv"
 	"strings"
 	"time"
 
-	"go.etcd.io/etcd/clientv3"
-	"go.etcd.io/etcd/pkg/transport"
+	"go.etcd.io/etcd/client/v3"
 	"google.golang.org/grpc"
 )
 
@@ -83,9 +83,10 @@ func NewEtcdClient(etcdDsn string) (*clientv3.Client, error) {
 	var tlsConfig *tls.Config
 	if config.UseTls {
 		tlsInfo := transport.TLSInfo{
-			CertFile:      config.CertFile,
-			KeyFile:       config.KeyFile,
-			TrustedCAFile: config.CaCertFile,
+			CertFile:           config.CertFile,
+			KeyFile:            config.KeyFile,
+			TrustedCAFile:      config.CaCertFile,
+			InsecureSkipVerify: true,
 		}
 		tlsConfig, err = tlsInfo.ClientConfig()
 		if err != nil {

@@ -3,7 +3,7 @@ package golight
 import (
 	"fmt"
 
-	"go.etcd.io/etcd/clientv3"
+	"go.etcd.io/etcd/client/v3"
 	"xdao.top/golight/srv"
 )
 
